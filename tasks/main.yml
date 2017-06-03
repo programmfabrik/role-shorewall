@@ -1,0 +1,5 @@
+---
+- include: shorewall.yml
+  when: shorewall_enabled
+  tags:
+    - shorewall

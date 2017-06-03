@@ -1,0 +1,6 @@
+- name: restart shorewall
+  shell: shorewall restart
+
+- name: restart shorewall6
+  shell: shorewall6 restart
+
