@@ -7,7 +7,10 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-    - jessie
+    - stretch
+  - name: Ubuntu
+    version:
+      - xenial
 
   galaxy_tags:
     - blunix

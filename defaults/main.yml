@@ -66,11 +66,12 @@ shorewall_policies:
     log_level: 'info'
     limit_burst: ''
 shorewall_rules:
-  NEW:
-    - name: allow incoming SSH traffic
-      src: all
-      dest: $FW
-      proto: tcp
-      dest_ports: [ssh]
-      action: ACCEPT
+  - section: NEW
+    rules:
+      - name: allow incoming SSH traffic
+        src: all
+        dest: $FW
+        proto: tcp
+        dest_ports: [ssh]
+        action: ACCEPT
 shorewall_masquerade: []
