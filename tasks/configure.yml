@@ -52,6 +52,15 @@
     mode: 0640
   notify: restart shorewall
 
+- name: upload shorewall tunnels-file
+  template:
+    src: etc/shorewall/tunnels.j2
+    dest: /etc/shorewall/tunnels
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart shorewall
+
 - name: upload shorewall rules-file
   template:
     src: etc/shorewall/rules.j2

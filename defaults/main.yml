@@ -77,3 +77,4 @@ shorewall_rules:
         dest_ports: [ssh]
         action: ACCEPT
 shorewall_masquerade: []
+shorewall_tunnels: []
