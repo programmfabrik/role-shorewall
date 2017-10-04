@@ -10,10 +10,10 @@ galaxy_info:
     - stretch
   - name: Ubuntu
     version:
-      - xenial
+    - xenial
 
   galaxy_tags:
-    - blunix
-    - shorewall
+  - blunix
+  - shorewall
 
 dependencies: []
