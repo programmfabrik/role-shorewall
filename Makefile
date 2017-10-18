@@ -17,7 +17,7 @@ molecule:
 
 test: molecule
 
-all: install molecule
+all: install test
 
 clean:
 	rm -rf molecule/*/.molecule
