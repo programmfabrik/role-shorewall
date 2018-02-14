@@ -1,5 +1,5 @@
 ---
-- include: "{{ distro_installer }}"
+- include_tasks: "{{ distro_installer }}"
   with_first_found:
     - "install/{{ ansible_distribution }}.{{ ansible_lsb.codename }}.yml"
     - "install/{{ ansible_distribution }}.yml"
@@ -9,6 +9,6 @@
   tags:
     - install
 
-- include: configure.yml
+- include_tasks: configure.yml
   tags:
     - configure
