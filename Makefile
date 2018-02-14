@@ -11,15 +11,14 @@ install:
 	pip install -r requirements.txt
 
 molecule:
-	@echo
-	@echo "Currently, no tests because of https://github.com/ansible/ansible/issues/27747"
-	@echo
+	molecule test --all
 
 test: molecule
 
 all: install test
 
 clean:
+	molecule destroy --all
 	rm -rf molecule/*/.molecule
 	rm -rf molecule/*/tests/__pycache__
 	find . -name \*.pyc -delete

@@ -1,0 +1,52 @@
+---
+- name: Converge
+  hosts: all
+  become: yes
+  vars:
+    shorewall_enabled: yes
+    shorewall_ip_forwarding: "YES"
+    shorewall_zones:
+      - name: local
+        in_options: ""
+        options: ""
+        out_options: ""
+        type: firewall
+      - name: pub
+        in_options: ""
+        options: ""
+        out_options: ""
+        type: ipv4
+    shorewall_interfaces:
+      - name: '{{ hostvars[inventory_hostname].ansible_default_ipv4.interface }}'
+        zone: pub
+        options: [ nosmurfs, routefilter=2, tcpflags, dhcp, optional ]
+    shorewall_policies:
+      - source: local
+        dest: pub
+        policy: ACCEPT
+      - source: all
+        dest: all
+        policy: REJECT
+        log_level: info
+    shorewall_rules:
+      - section: NEW
+        rules:
+          - name: allow ICMP echo request/response
+            src: all
+            dest: all
+            proto: icmp
+            action: Ping(ACCEPT)
+          - name: allow important ICMP
+            src: all
+            dest: all
+            proto: icmp
+            action: AllowICMPs(ACCEPT)
+          - name: allow SSH traffic from all networks
+            src: all
+            dest: local
+            proto: tcp
+            dest_ports: [ssh, rsync]
+            action: ACCEPT
+
+  roles:
+    - role: role-shorewall
