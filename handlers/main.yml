@@ -3,4 +3,3 @@
 
 - name: restart shorewall6
   command: shorewall6 restart
-

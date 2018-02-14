@@ -1,5 +1,5 @@
 ---
-- include: shorewall.yml
+- include_tasks: shorewall.yml
   when: shorewall_enabled
   tags:
     - shorewall

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Brian Wiborg
   company: Blunix GmbH
@@ -5,15 +6,15 @@ galaxy_info:
   min_ansible_version: 1.2
 
   platforms:
-  - name: Debian
-    versions:
-    - stretch
-  - name: Ubuntu
-    version:
-    - xenial
+    - name: Debian
+      versions:
+        - stretch
+    - name: Ubuntu
+      version:
+        - xenial
 
   galaxy_tags:
-  - blunix
-  - shorewall
+    - blunix
+    - shorewall
 
 dependencies: []
