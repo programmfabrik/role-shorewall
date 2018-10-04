@@ -15,5 +15,5 @@
 #INTERFACE:DEST		SOURCE		ADDRESS		PROTO	PORT(S)	IPSEC	MARK	USER/	SWITCH	ORIGINAL
 #											GROUP		DEST
 {% for item in shorewall_masquerade %}
-{{ item.interface }}   {{ item.sources|join (',') }}
+{{ item.interface }}{% if item.destinations is defined %}:{{ item.destinations }}{% endif%}   {{ item.sources | default('-') }}
 {% endfor %}

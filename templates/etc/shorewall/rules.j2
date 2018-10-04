@@ -18,7 +18,7 @@
 ?SECTION {{ section.section }}
 {% for rule in section.rules %}
 # {{ rule.name }}
-{{ rule.action | default('ACCEPT') }} {{ rule.src | default('$FW') }} {{ rule.dest | default('$FW') }} {{ rule.proto }} {% if rule.dest_ports is defined %}{{ rule.dest_ports|join (',') }}{% endif %}
+{{ rule.action | default('ACCEPT') }} {{ rule.src | default('$FW') }} {{ rule.dest | default('$FW') }} {{ rule.proto | default('-') }} {{ rule.dest_ports | default('-') }}
 
 {% endfor %}
 {% endfor %}
