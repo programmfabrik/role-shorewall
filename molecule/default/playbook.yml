@@ -45,7 +45,7 @@
             src: all
             dest: local
             proto: tcp
-            dest_ports: [ssh, rsync]
+            dest_ports: ssh,rsync
             action: ACCEPT
 
   roles:
