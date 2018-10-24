@@ -13,6 +13,7 @@ shorewall_multicast: 'No'  # [Yes|No]
 shorewall_startup_enabled: 'Yes'  # [Yes|No]
 shorewall_startup_log: '/var/log/shorewall-init.log'  # [pathname]
 shorewall_verbosity: '2'  # [0=Silent|1=Major|2=All]
+shorewall_disable_ipv6: 'No'
 shorewall_zones:
   - name: 'fw'
     in_options:
