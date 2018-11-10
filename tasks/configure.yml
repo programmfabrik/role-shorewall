@@ -1,4 +1,23 @@
----
+- name: import vars/shorewall/{{ hostname_item }}.yml from playbook if present
+  include_vars: vars/shorewall/{{ hostname_item }}.yml
+  failed_when: no
+  ignore_errors: yes
+  register: config_in_playbook
+  with_items:
+    - "{{ inventory_hostname }}"
+    - "{{ ansible_hostname }}"
+    - "{{ inventory_hostname_short }}"
+  loop_control:
+    loop_var: hostname_item
+
+- name: merge in imported variables if found
+  set_fact:
+    shorewall_zones: "{{ shorewall_zones + shorewall_extra_zones | default([]) }}"
+    shorewall_interfaces: "{{ shorewall_interfaces + shorewall_extra_interfaces | default([]) }}"
+    shorewall_policies: "{{ shorewall_extra_policies | default([]) + shorewall_policies }}"
+    shorewall_masquerade: "{{ shorewall_masquerade + shorewall_extra_masquerade | default([]) }}"
+    shorewall_rules: "{{ shorewall_rules + shorewall_extra_rules | default([]) }}"
+
 - name: upload shorewall defaults
   template:
     src: etc/default/shorewall.j2

@@ -1,5 +1,4 @@
 ---
-shorewall_enabled: no
 shorewall_accounting: 'No'  # [Yes|No]
 shorewall_ip_forwarding: 'Off' # [On|Off|Keep]
 shorewall_logformat: 'Shorewall:%s:%s:'  # ["formattemplate"]
