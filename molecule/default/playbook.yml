@@ -19,7 +19,7 @@
     shorewall_interfaces:
       - name: '{{ hostvars[inventory_hostname].ansible_default_ipv4.interface }}'
         zone: pub
-        options: [ nosmurfs, routefilter=2, tcpflags, dhcp, optional ]
+        options: nosmurfs,routefilter=2,tcpflags,dhcp,optional
     shorewall_policies:
       - source: local
         dest: pub
@@ -45,7 +45,7 @@
             src: all
             dest: local
             proto: tcp
-            dest_ports: "ssh,rsync"
+            dest_ports: ssh,rsync
             action: ACCEPT
 
   roles:

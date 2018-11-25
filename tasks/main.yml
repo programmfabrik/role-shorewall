@@ -1,5 +1,14 @@
 ---
-- include_tasks: shorewall.yml
-  when: shorewall_enabled
+- include_tasks: "{{ distro_installer }}"
+  with_first_found:
+    - "install/{{ ansible_distribution }}.{{ ansible_lsb.codename }}.yml"
+    - "install/{{ ansible_distribution }}.yml"
+    - "install/default.yml"
+  loop_control:
+    loop_var: distro_installer
   tags:
-    - shorewall
+    - install
+
+- include_tasks: configure.yml
+  tags:
+    - configure

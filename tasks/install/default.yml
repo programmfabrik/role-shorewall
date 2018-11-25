@@ -2,6 +2,6 @@
 - name: install shorewall
   apt:
     pkg: shorewall
-    state: installed
+    state: present
     update_cache: no
     install_recommends: no

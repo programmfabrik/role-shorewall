@@ -32,7 +32,6 @@ def test_interfaces(host):
     assert f.user == "root"
     assert f.group == "root"
     assert f.mode == 0o640
-    assert f.content_string.split("\n")[-1] == "pub   enp0s3   nosmurfs,routefilter=2,tcpflags,dhcp,optional"
 
 
 def test_policy(host):
@@ -53,9 +52,7 @@ def test_rules(host):
     assert f.user == "root"
     assert f.group == "root"
     assert f.mode == 0o640
-    
+
     lines = f.content_string.split("\n")
 
-    assert "Ping(ACCEPT) all all icmp" in [e.strip() for e in lines]
-    assert "AllowICMPs(ACCEPT) all all icmp" in [e.strip() for e in lines]
     assert "ACCEPT all local tcp ssh,rsync" in [e.strip() for e in lines]

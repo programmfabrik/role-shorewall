@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 .PHONY: help install test molecule all clean
 
 help:
@@ -22,3 +24,8 @@ clean:
 	rm -rf molecule/*/.molecule
 	rm -rf molecule/*/tests/__pycache__
 	find . -name \*.pyc -delete
+
+update:
+	pip install -U pip
+	pur -r requirements.txt
+	$(MAKE) install
