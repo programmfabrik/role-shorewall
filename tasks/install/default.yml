@@ -1,7 +1,9 @@
 ---
-- name: install shorewall
+- name: installing shorewall
+  when: not shorewall_install_from_source
   apt:
     pkg: shorewall
     state: present
-    update_cache: no
-    install_recommends: no
+
+- include_tasks: from_source.yml
+  when: shorewall_install_from_source

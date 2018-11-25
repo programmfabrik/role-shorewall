@@ -3,6 +3,10 @@
   hosts: all
   become: yes
   vars:
+    shorewall_install_from_source: yes
+    shorewall_version: 5.2.1.1
+    shorewall_rc: debian
+    shorewall_init: systemd
     shorewall_enabled: yes
     shorewall_ip_forwarding: "YES"
     shorewall_zones:
@@ -29,24 +33,23 @@
         policy: REJECT
         log_level: info
     shorewall_rules:
-      - section: NEW
-        rules:
-          - name: allow ICMP echo request/response
-            src: all
-            dest: all
-            proto: icmp
-            action: Ping(ACCEPT)
-          - name: allow important ICMP
-            src: all
-            dest: all
-            proto: icmp
-            action: AllowICMPs(ACCEPT)
-          - name: allow SSH traffic from all networks
-            src: all
-            dest: local
-            proto: tcp
-            dest_ports: ssh,rsync
-            action: ACCEPT
+      NEW:
+      - name: allow ICMP echo request/response
+        src: all
+        dest: all
+        proto: icmp
+        action: Ping(ACCEPT)
+      - name: allow important ICMP
+        src: all
+        dest: all
+        proto: icmp
+        action: AllowICMPs(ACCEPT)
+      - name: allow SSH traffic from all networks
+        src: all
+        dest: local
+        proto: tcp
+        dest_ports: ssh,rsync
+        action: ACCEPT
 
   roles:
     - role: role-shorewall

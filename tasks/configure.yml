@@ -17,12 +17,12 @@
     shorewall_policies: "{{ shorewall_extra_policies | default([]) + shorewall_policies }}"
     shorewall_masquerade: "{{ shorewall_masquerade + shorewall_extra_masquerade | default([]) }}"
     shorewall_rules: #"{{ shorewall_rules + shorewall_extra_rules | default([]) }}"
-      ALL: "{{ shorewall_rules.ALL + shorewall_extra_rules.ALL | default([]) }}"
-      ESTABLISHED: "{{ shorewall_rules.ESTABLISHED + shorewall_extra_rules.ESTABLISHED | default([]) }}"
-      RELATED: "{{ shorewall_rules.RELATED + shorewall_extra_rules.RELATED | default([]) }}"
-      INVALID: "{{ shorewall_rules.INVALID + shorewall_extra_rules.INVALID | default([]) }}"
-      UNTRACKED: "{{ shorewall_rules.UNTRACKED + shorewall_extra_rules.UNTRACKED | default([]) }}"
-      NEW: "{{ shorewall_rules.NEW + shorewall_extra_rules.NEW | default([]) }}"
+      ALL: "{{ shorewall_rules.ALL | default([]) + shorewall_extra_rules.ALL | default([]) }}"
+      ESTABLISHED: "{{ shorewall_rules.ESTABLISHED | default([]) + shorewall_extra_rules.ESTABLISHED | default([]) }}"
+      RELATED: "{{ shorewall_rules.RELATED | default([]) + shorewall_extra_rules.RELATED | default([]) }}"
+      INVALID: "{{ shorewall_rules.INVALID | default([]) + shorewall_extra_rules.INVALID | default([]) }}"
+      UNTRACKED: "{{ shorewall_rules.UNTRACKED | default([]) + shorewall_extra_rules.UNTRACKED | default([]) }}"
+      NEW: "{{ shorewall_rules.NEW | default([]) + shorewall_extra_rules.NEW | default([]) }}"
 
 - name: upload shorewall defaults
   template:
@@ -33,8 +33,19 @@
     mode: 0644
 
 - name: upload shorewall configuration
+  when: not shorewall_install_from_source
   template:
     src: etc/shorewall/shorewall.conf.j2
+    dest: /etc/shorewall/shorewall.conf
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart shorewall
+
+- name: upload shorewall configuration
+  when: shorewall_install_from_source
+  template:
+    src: etc/shorewall/shorewall-{{ shorewall_version }}.conf.j2
     dest: /etc/shorewall/shorewall.conf
     owner: root
     group: root
