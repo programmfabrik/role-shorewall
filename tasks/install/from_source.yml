@@ -1,0 +1,47 @@
+- name: cutting version number into slices
+  set_fact:
+    shorewall_version_2: "{{ shorewall_version.split('.')[:2] | join('.') }}"
+    shorewall_version_3: "{{ shorewall_version.split('.')[:3] | join('.') }}"
+
+- name: downloading shorewall-{{ shorewall_version }}.tgz
+  get_url:
+    url: "https://www.shorewall.fi/pub/shorewall/{{ shorewall_version_2 }}/shorewall-{{ shorewall_version_3 }}/shorewall-{{ shorewall_version }}.tgz"
+    dest: /shorewall-{{ shorewall_version }}.tar.gz
+    mode: 0640
+
+- name: downloading shorewall-core-{{ shorewall_version }}.tgz
+  get_url:
+    url: "https://www.shorewall.fi/pub/shorewall/{{ shorewall_version_2 }}/shorewall-{{ shorewall_version_3 }}/shorewall-core-{{ shorewall_version }}.tgz"
+    dest: /shorewall-core-{{ shorewall_version }}.tar.gz
+    mode: 0640
+
+- name: downloading shorewall-init-{{ shorewall_version }}.tgz
+  get_url:
+    url: "https://www.shorewall.fi/pub/shorewall/{{ shorewall_version_2 }}/shorewall-{{ shorewall_version_3 }}/shorewall-init-{{ shorewall_version }}.tgz"
+    dest: /shorewall-init-{{ shorewall_version }}.tar.gz
+    mode: 0640
+
+- name: unpacking /shorewall-{{ shorewall_version }}.tgz
+  shell: cd /; tar zxvf /shorewall-{{ shorewall_version }}.tar.gz
+  args:
+    executable: /bin/bash
+
+- name: unpacking /shorewall-core-{{ shorewall_version }}.tgz
+  shell: cd /; tar zxvf /shorewall-core-{{ shorewall_version }}.tar.gz
+  args:
+    executable: /bin/bash
+
+- name: unpacking /shorewall-init-{{ shorewall_version }}.tgz
+  shell: cd /; tar zxvf /shorewall-init-{{ shorewall_version }}.tar.gz
+  args:
+    executable: /bin/bash
+
+- name: installing shorewall-core-{{ shorewall_version }}
+  shell: /shorewall-core-{{ shorewall_version }}/install.sh /shorewall-core-{{ shorewall_version }}/shorewallrc.{{ shorewall_rc }}.{{ shorewall_init }}
+  args:
+    executable: /bin/bash
+
+- name: installing shorewall-{{ shorewall_version }}
+  shell: /shorewall-{{ shorewall_version }}/install.sh /shorewall-{{ shorewall_version }}/shorewallrc.{{ shorewall_rc }}.{{ shorewall_init }}
+  args:
+    executable: /bin/bash

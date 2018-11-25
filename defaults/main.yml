@@ -1,4 +1,5 @@
 ---
+shorewall_install_from_source: no
 shorewall_accounting: 'No'  # [Yes|No]
 shorewall_ip_forwarding: 'Off' # [On|Off|Keep]
 shorewall_logformat: 'Shorewall:%s:%s:'  # ["formattemplate"]
@@ -68,13 +69,26 @@ shorewall_policies:
     log_level: 'info'
     limit_burst: ''
 shorewall_rules:
-  - section: NEW
-    rules:
-      - name: allow incoming SSH traffic
-        src: all
-        dest: $FW
-        proto: tcp
-        dest_ports: [ssh]
-        action: ACCEPT
+  - ALL: []
+  - RELATED: []
+  - ESTABLISHED: []
+  - INVALID: []
+  - UNTRACKED: []
+  - NEW:
+    - name: allow incoming SSH traffic
+      src: all
+      dest: $FW
+      proto: tcp
+      dest_ports: [ssh]
+      action: ACCEPT
+
+shorewall_extra_rules:
+  ALL: []
+  RELATED: []
+  ESTABLISHED: []
+  INVALID: []
+  UNTRACKED: []
+  NEW: []
+
 shorewall_masquerade: []
 shorewall_tunnels: []
