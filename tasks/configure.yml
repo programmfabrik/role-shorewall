@@ -35,7 +35,7 @@
 - name: upload shorewall configuration
   when: not shorewall_install_from_source
   template:
-    src: etc/shorewall/shorewall.conf.j2
+    src: etc/shorewall/shorewall-5.2.1.1.conf.j2
     dest: /etc/shorewall/shorewall.conf
     owner: root
     group: root
