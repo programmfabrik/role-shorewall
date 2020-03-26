@@ -105,3 +105,17 @@
     group: root
     mode: 0640
   notify: restart shorewall
+
+- name: enable shorewall
+  when: shorewall_enabled
+  service:
+    name: shorewall
+    enabled: yes
+    state: started
+
+- name: stop and disable shorewall
+  when: not shorewall_enabled
+  service:
+    name: shorewall
+    enabled: no
+    state: stopped

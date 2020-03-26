@@ -1,8 +1,8 @@
 ---
-- name: installing shorewall
+- name: install shorewall
   when: not shorewall_install_from_source
-  apt:
-    pkg: shorewall
+  package:
+    name: shorewall
     state: present
 
 - include_tasks: from_source.yml
